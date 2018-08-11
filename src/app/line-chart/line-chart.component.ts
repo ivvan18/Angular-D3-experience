@@ -1,5 +1,7 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
+import * as moment from 'moment';
+import * as D3 from 'd3';
 import * as d3 from 'd3-selection';
 import * as d3Scale from 'd3-scale';
 import * as d3Shape from 'd3-shape';
@@ -51,22 +53,28 @@ export class LineChartComponent implements OnInit {
   }
 
   private drawAxis() {
+    const dayInterval = moment(STOCKS[0].date).diff(moment(STOCKS[STOCKS.length-1].date), 'days');
+    // console.log(dayInterval);
+    // const averageInterval = (dayInterval/STOCKS.length).toFixed(0);
+    // console.log(averageInterval);
+    // const ticksNumber = dayInterval/averageInterval;
+    // console.log(ticksNumber);
 
     this.svg.append('g')
       .attr('class', 'axis axis--x')
       .attr('transform', 'translate(0,' + this.height + ')')
-      .call(d3Axis.axisBottom(this.x));
+      .call(d3Axis.axisBottom(this.x).ticks(D3.timeDay.every(dayInterval > 7 ? dayInterval / 7 : dayInterval)).tickFormat(D3.timeFormat("%b %d")).tickSizeOuter(0));
 
     this.svg.append('g')
       .attr('class', 'axis axis--y')
-      .call(d3Axis.axisLeft(this.y))
+      .call(d3Axis.axisLeft(this.y).tickValues([0, Math.max(...STOCKS.map(x => x.value))]).tickSizeOuter(0))
       .append('text')
       .attr('class', 'axis-title')
       .attr('transform', 'rotate(-90)')
       .attr('y', 6)
       .attr('dy', '.71em')
       .style('text-anchor', 'end')
-      .text('Price ($)');
+      .text('SP');
   }
 
   private drawLine() {
