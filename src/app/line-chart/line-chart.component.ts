@@ -53,7 +53,7 @@ export class LineChartComponent implements OnInit {
   }
 
   private drawAxis() {
-    const dayInterval = moment(STOCKS[0].date).diff(moment(STOCKS[STOCKS.length-1].date), 'days');
+    const dayInterval = moment(STOCKS[0].date).diff(moment(STOCKS[STOCKS.length - 1].date), 'days');
     // console.log(dayInterval);
     // const averageInterval = (dayInterval/STOCKS.length).toFixed(0);
     // console.log(averageInterval);
@@ -91,33 +91,33 @@ export class LineChartComponent implements OnInit {
   // gridlines in x axis function
   private make_x_gridlines() {
     return d3Axis.axisBottom(this.x)
-      .ticks(5)
+      .ticks(5);
   }
 
 // gridlines in y axis function
   private make_y_gridlines() {
     return d3Axis.axisLeft(this.y)
-      .ticks(5)
+      .ticks(5);
   }
 
   private drawGridX() {
     // add the X gridlines
-    this.svg.append("g")
-      .attr("class", "grid")
-      .attr("transform", "translate(0," + this.height + ")")
+    this.svg.append('g')
+      .attr('class', 'grid')
+      .attr('transform', 'translate(0,' + this.height + ')')
       .call(this.make_x_gridlines()
         .tickSize(-this.height)
-        .tickFormat("")
-      )
+        .tickFormat('')
+      );
   }
 
   private drawGridY() {
     // add the Y gridlines
-    this.svg.append("g")
-      .attr("class", "grid")
+    this.svg.append('g')
+      .attr('class', 'grid')
       .call(this.make_y_gridlines()
         .tickSize(-this.width)
-        .tickFormat("")
-      )
+        .tickFormat('')
+      );
   }
 }
