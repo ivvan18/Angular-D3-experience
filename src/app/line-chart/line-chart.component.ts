@@ -63,7 +63,7 @@ export class LineChartComponent implements OnInit {
     this.svg.append('g')
       .attr('class', 'axis axis--x')
       .attr('transform', 'translate(0,' + this.height + ')')
-      .call(d3Axis.axisBottom(this.x).ticks(D3.timeDay.every(dayInterval > 7 ? dayInterval / 7 : dayInterval)).tickFormat(D3.timeFormat("%b %d")).tickSizeOuter(0));
+      .call(d3Axis.axisBottom(this.x).ticks(D3.timeDay.every(15)).tickFormat(D3.timeFormat('%b %d')).tickSizeOuter(0));
 
     this.svg.append('g')
       .attr('class', 'axis axis--y')
